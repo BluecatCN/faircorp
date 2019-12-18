@@ -28,6 +28,10 @@ public class Light {
         this.status = status;
         this.room = room;
     }
+
+    public Light(Object one) {
+    }
+
     public Long getId() {
         return this.id;
     }

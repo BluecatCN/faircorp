@@ -2,6 +2,7 @@ package com.emse.faircorp.dao;
 
 import com.emse.faircorp.model.Light;
 import com.emse.faircorp.model.Room;
+import com.emse.faircorp.model.Status;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -22,10 +23,15 @@ public class RoomDaoCustomImpl implements RoomDaoCustom {
                 .getSingleResult();
     }
     @Override
-    public List<Light> findRoomLightsByRoomId() {
-        String jpql = "select lt from Light lt, Room rm where lt.room_id = Room.id and Room.id = :id";
+    public List<Light> findRoomLightsByRoomId(Long id) {
+        String jpql = "select lt from Light lt join lt.room rm where rm.id = :id";
         return em.createQuery(jpql, Light.class)
-                .setParameter("id", -10)
+                .setParameter("id", id)
                 .getResultList();
+    }
+
+    @Override
+    public Object getOne(Status room, Integer level, Status status) {
+        return null;
     }
 }
