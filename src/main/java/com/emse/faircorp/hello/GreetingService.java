@@ -1,4 +1,4 @@
-package com.emse.FairCorp.hello;
+package com.emse.faircorp.hello;
 
 public interface GreetingService {
     void greet (String name);

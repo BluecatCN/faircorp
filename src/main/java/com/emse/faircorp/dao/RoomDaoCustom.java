@@ -1,0 +1,11 @@
+package com.emse.faircorp.dao;
+
+import com.emse.faircorp.model.Light;
+import com.emse.faircorp.model.Room;
+
+import java.util.List;
+
+public interface RoomDaoCustom {
+    Room findRoomByName();
+    List<Light> findRoomLightsByRoomId();
+}

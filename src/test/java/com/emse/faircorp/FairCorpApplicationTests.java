@@ -1,4 +1,4 @@
-package com.emse.FairCorp;
+package com.emse.faircorp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
