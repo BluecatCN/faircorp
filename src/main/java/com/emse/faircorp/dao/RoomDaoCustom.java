@@ -10,5 +10,6 @@ public interface RoomDaoCustom {
     Room findRoomByName();
     List<Light> findRoomLightsByRoomId(Long id);
 
-    Object getOne(Status room, Integer level, Status status);
+
+    Object getOne(Room room, Integer level, Status status);
 }

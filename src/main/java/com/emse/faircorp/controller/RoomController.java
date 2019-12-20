@@ -4,6 +4,7 @@ import com.emse.faircorp.dao.LightDao;
 import com.emse.faircorp.dao.RoomDao;
 import com.emse.faircorp.dao.RoomDaoCustom;
 import com.emse.faircorp.dto.LightDto;
+import com.emse.faircorp.dto.RoomDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,9 +21,17 @@ import java.util.stream.Collectors;
 public class RoomController {
 
     @Autowired
-    private LightDao lightDao; // 4.
+    private LightDao lightDao;
     @Autowired
     private RoomDao roomDao;
+
+    @GetMapping
+    public List<RoomDto> findAll() {
+        return roomDao.findAll()
+                .stream()
+                .map(RoomDto::new)
+                .collect(Collectors.toList());
+    }
 
     @GetMapping(path = "getLig/{id}")
     public List<LightDto> findLightsByRoom(@PathVariable Long id) {

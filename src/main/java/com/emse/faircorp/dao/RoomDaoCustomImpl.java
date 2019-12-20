@@ -31,7 +31,7 @@ public class RoomDaoCustomImpl implements RoomDaoCustom {
     }
 
     @Override
-    public Object getOne(Status room, Integer level, Status status) {
+    public Object getOne(Room room, Integer level, Status status) {
         return null;
     }
 }
