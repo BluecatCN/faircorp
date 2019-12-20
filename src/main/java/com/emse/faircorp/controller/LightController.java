@@ -22,7 +22,6 @@ public class LightController {
     @Autowired
     private RoomDao roomDao;
 
-
     @GetMapping
     public List<LightDto> findAll() {
         return lightDao.findAll()
