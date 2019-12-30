@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
-public class FairCorpApplication extends WebMvcConfigurationSupport {
+public class FairCorpApplication {
 
     public static void main(String[] args) {
         //gg
@@ -24,51 +24,16 @@ public class FairCorpApplication extends WebMvcConfigurationSupport {
 
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-//				registry.addMapping("/**")
-//                        .allowedOrigins("*")
-//                        .allowedMethods("GET")
-//                ;
                 registry.addMapping("/**")
                         .allowedOrigins("*")
-                        .allowedMethods("GET", "HEAD", "POST","PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*")
-                        .exposedHeaders("access-control-allow-headers",
-                                "access-control-allow-methods",
-                                "access-control-allow-origin",
-                                "access-control-max-age",
-                                "X-Frame-Options")
-                        .allowCredentials(false).maxAge(3600);
-                WebMvcConfigurer.super.addCorsMappings(registry);
+                        .allowedMethods("GET")
+                ;
+
             }
+
+
         };
+
+
     }
-
-    @Override
-    protected void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("GET", "HEAD", "POST","PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
-                .exposedHeaders("access-control-allow-headers",
-                        "access-control-allow-methods",
-                        "access-control-allow-origin",
-                        "access-control-max-age",
-                        "X-Frame-Options")
-                .allowCredentials(false).maxAge(3600);
-        super.addCorsMappings(registry);
-    }
-
-
-//	// Enable CORS globally
-//	@Bean
-//	public WebMvcConfigurer corsConfigurer() {
-//		return new WebMvcConfigurerAdapter() {
-//			@Override
-//			public void addCorsMappings(CorsRegistry registry) {
-//				registry.addMapping("/api/*").allowedOrigins("http://localhost:8080");
-//			}
-//		};
-//	}
-
-
 }
