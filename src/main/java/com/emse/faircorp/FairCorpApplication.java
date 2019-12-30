@@ -23,10 +23,21 @@ public class FairCorpApplication {
 
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
+//				registry.addMapping("/**")
+//                        .allowedOrigins("*")
+//                        .allowedMethods("GET")
+//                ;
+                registry.addMapping("/**")
                         .allowedOrigins("*")
-                        .allowedMethods("GET")
-                ;
+                        .allowedMethods("GET", "HEAD", "POST","PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .exposedHeaders("access-control-allow-headers",
+                                "access-control-allow-methods",
+                                "access-control-allow-origin",
+                                "access-control-max-age",
+                                "X-Frame-Options")
+                        .allowCredentials(false).maxAge(3600);
+                WebMvcConfigurer.super.addCorsMappings(registry);
             }
         };
     }
