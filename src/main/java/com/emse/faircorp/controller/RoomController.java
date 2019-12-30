@@ -6,10 +6,7 @@ import com.emse.faircorp.dao.RoomDaoCustom;
 import com.emse.faircorp.dto.LightDto;
 import com.emse.faircorp.dto.RoomDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -25,6 +22,7 @@ public class RoomController {
     @Autowired
     private RoomDao roomDao;
 
+//    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping
     public List<RoomDto> findAll() {
         return roomDao.findAll()

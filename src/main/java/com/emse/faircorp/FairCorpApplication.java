@@ -23,8 +23,7 @@ public class FairCorpApplication {
 
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("https://emsebuildingrooms.000webhostapp.com")
+				registry.addMapping("/**")
                         .allowedMethods("GET");
             }
         };
