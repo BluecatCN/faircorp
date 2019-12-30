@@ -24,7 +24,9 @@ public class FairCorpApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-                        .allowedMethods("GET");
+                        .allowedOrigins("*")
+                        .allowedMethods("GET")
+                ;
             }
         };
     }
