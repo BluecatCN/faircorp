@@ -7,6 +7,7 @@ import com.emse.faircorp.model.Light;
 import com.emse.faircorp.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+//import org.springframework.web.filter.HttpPutFormContentFilter;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -36,7 +37,8 @@ public class LightController {
     }
 
 
-    @PutMapping(path = "/{id}/switch")
+//    @PutMapping(path = "/{id}/switch")
+    @RequestMapping(value = "/{id}/switch", method = RequestMethod.GET)
     public LightDto switchStatus(@PathVariable Long id) {
         Light light = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
         light.setStatus(light.getStatus() == Status.ON ? Status.OFF : Status.ON);

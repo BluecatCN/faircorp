@@ -31,7 +31,7 @@ public class RoomController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(path = "getLig/{id}")
+    @GetMapping(path = "getLights/{id}")
     public List<LightDto> findLightsByRoom(@PathVariable Long id) {
         return roomDao.findRoomLightsByRoomId(id).stream().map(light -> new LightDto(light)).collect(Collectors.toList());
     }
