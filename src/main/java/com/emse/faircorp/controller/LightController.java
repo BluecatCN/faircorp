@@ -4,6 +4,7 @@ import com.emse.faircorp.dao.LightDao;
 import com.emse.faircorp.dao.RoomDao;
 import com.emse.faircorp.dto.LightDto;
 import com.emse.faircorp.model.Light;
+import com.emse.faircorp.model.Room;
 import com.emse.faircorp.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,15 +38,18 @@ public class LightController {
     }
 
 
-//    @PutMapping(path = "/{id}/switch")
+    //    @PutMapping(path = "/{id}/switch")
     @RequestMapping(value = "/{id}/switch", method = RequestMethod.GET)
-    public LightDto switchStatus(@PathVariable Long id) {
-        Light light = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        light.setStatus(light.getStatus() == Status.ON ? Status.OFF : Status.ON);
-        return new LightDto(light);
+    public List<LightDto> switchStatus(@PathVariable Long id) {
+        Light light1 = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
+        light1.setStatus(light1.getStatus() == Status.ON ? Status.OFF : Status.ON);
+
+        Room room = light1.getRoom();
+        Long roomId = room.getId();
+        return roomDao.findRoomLightsByRoomId(roomId).stream().map(light -> new LightDto(light)).collect(Collectors.toList());
     }
 
-    @PostMapping
+    @RequestMapping(value = "createLight", method = RequestMethod.POST)
     public LightDto create(@RequestBody LightDto dto) {
         Light light = null;
         if (dto.getId() != null) {
