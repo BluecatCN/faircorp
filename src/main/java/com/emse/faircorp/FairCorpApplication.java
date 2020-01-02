@@ -26,7 +26,7 @@ public class FairCorpApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("*")
-                        .allowedMethods("GET")
+//                        .allowedMethods("GET")
                 ;
 
             }

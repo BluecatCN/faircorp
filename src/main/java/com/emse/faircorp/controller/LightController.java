@@ -49,7 +49,7 @@ public class LightController {
         return roomDao.findRoomLightsByRoomId(roomId).stream().map(light -> new LightDto(light)).collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "createLight", method = RequestMethod.POST)
+//    @RequestMapping(value = "createLight", method = RequestMethod.POST)
     public LightDto create(@RequestBody LightDto dto) {
         Light light = null;
         if (dto.getId() != null) {
