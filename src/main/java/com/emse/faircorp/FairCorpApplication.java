@@ -27,6 +27,7 @@ public class FairCorpApplication {
                 registry.addMapping("/**")
                         .allowedOrigins("*")
 //                        .allowedMethods("GET")
+                        .allowedHeaders("*")
                 ;
 
             }
