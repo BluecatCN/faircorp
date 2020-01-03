@@ -37,5 +37,11 @@ public class BuildingController {
     }
 
 
+    @GetMapping(path = "getRooms/{id}")
+    public List<BuildingDto> findRoomsByBuilding(@PathVariable Long id) {
+        return buildingDao.findBuildingRoomsByBuildingId(id).stream().map(building -> new BuildingDto(building)).collect(Collectors.toList());
+    }
+
+
 
 }
