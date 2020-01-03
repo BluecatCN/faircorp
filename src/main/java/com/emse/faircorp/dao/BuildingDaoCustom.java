@@ -1,8 +1,8 @@
 package com.emse.faircorp.dao;
-import com.emse.faircorp.model.Building;
+import com.emse.faircorp.model.Room;
 
 import java.util.List;
 
 public interface BuildingDaoCustom {
-    List<Building> findBuildingRoomsByBuildingId(Long id);
+    List<Room> findBuildingRoomsByBuildingId(Long id);
 }

@@ -2,6 +2,7 @@ package com.emse.faircorp.controller;
 
 import com.emse.faircorp.dao.BuildingDao;
 import com.emse.faircorp.dto.BuildingDto;
+import com.emse.faircorp.dto.RoomDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,8 +39,8 @@ public class BuildingController {
 
 
     @GetMapping(path = "getRooms/{id}")
-    public List<BuildingDto> findRoomsByBuilding(@PathVariable Long id) {
-        return buildingDao.findBuildingRoomsByBuildingId(id).stream().map(building -> new BuildingDto(building)).collect(Collectors.toList());
+    public List<RoomDto> findRoomsByBuilding(@PathVariable Long id) {
+        return buildingDao.findBuildingRoomsByBuildingId(id).stream().map(room -> new RoomDto(room)).collect(Collectors.toList());
     }
 
 
