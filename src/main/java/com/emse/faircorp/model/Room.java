@@ -20,13 +20,17 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private Set<Light> lights;
 
+    @ManyToOne()
+    private Building building;
+
     public Room() {
     }
 
-    public Room(Long id, String name, Integer floor) {
+    public Room(Long id, String name, Integer floor, Set<Light> lights) {
         this.id = id;
         this.name = name;
         this.floor = floor;
+        this.lights = lights;
     }
     public Long getId() {
         return id;

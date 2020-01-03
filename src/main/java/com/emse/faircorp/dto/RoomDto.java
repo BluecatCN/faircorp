@@ -11,6 +11,7 @@ public class RoomDto {
     private String name;
     private Integer floor;
 //    private Set<Light> lights;
+    private String[] lights;
 
     public RoomDto() {
     }
@@ -19,7 +20,8 @@ public class RoomDto {
         this.id = room.getId();
         this.name = room.getName();
         this.floor = room.getFloor();
-//        this.lights = room.getLights();
+        Set<Light> ll = room.getLights();
+        this.lights = (String[]) room.getLights().toArray();
     }
 
     public Long getId() {
@@ -42,13 +44,12 @@ public class RoomDto {
         this.floor = floor;
     }
 
-//
-//    public Set<Light> getLights() {
-//        return lights;
-//    }
-//
-//    public void setLights(Set<Light> lights) {
-//        this.lights = lights;
-//    }
 
+    public String[] getLights() {
+        return lights;
+    }
+
+    public void setLights(String[] lights) {
+        this.lights = lights;
+    }
 }

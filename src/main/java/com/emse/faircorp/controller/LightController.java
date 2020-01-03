@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/lights")
 @Transactional
 public class LightController {
@@ -35,7 +35,9 @@ public class LightController {
 
     @GetMapping(path = "/{id}")
     public LightDto findById(@PathVariable Long id) {
-        return lightDao.findById(id).map(light -> new LightDto(light)).orElse(null);
+        return lightDao.findById(id).
+                map(light -> new LightDto(light)).
+                orElse(null);
     }
 
 
@@ -51,31 +53,31 @@ public class LightController {
     }
 
 //    @RequestMapping(value = "createLight", method = RequestMethod.POST)
-    public LightDto create(@RequestBody LightDto dto) {
-        Light light = null;
-        if (dto.getId() != null) {
-            light = lightDao.findById(dto.getId()).orElse(null);
-        }
-
-        if (light == null) {
-//            roomDao.getOne(dto.getId())
-            light = lightDao.save(
-                    new Light(
-                            roomDao.getOne(
-                                    dto.getRoom(),
-                                    dto.getLevel(),
-                                    dto.getStatus()
-                            )
-                    )
-            );
-        } else {
-            light.setLevel(dto.getLevel());
-            light.setStatus(dto.getStatus());
-            lightDao.save(light);
-        }
-
-        return new LightDto(light);
-    }
+//    public LightDto create(@RequestBody LightDto dto) {
+//        Light light = null;
+//        if (dto.getId() != null) {
+//            light = lightDao.findById(dto.getId()).orElse(null);
+//        }
+//
+//        if (light == null) {
+////            roomDao.getOne(dto.getId())
+//            light = lightDao.save(
+//                    new Light(
+//                            roomDao.getOne(
+//                                    dto.getRoom(),
+//                                    dto.getLevel(),
+//                                    dto.getStatus()
+//                            )
+//                    )
+//            );
+//        } else {
+//            light.setLevel(dto.getLevel());
+//            light.setStatus(dto.getStatus());
+//            lightDao.save(light);
+//        }
+//
+//        return new LightDto(light);
+//    }
 
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Long id) {
