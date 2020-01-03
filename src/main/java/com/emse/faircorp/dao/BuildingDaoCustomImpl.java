@@ -1,5 +1,4 @@
 package com.emse.faircorp.dao;
-
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

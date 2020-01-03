@@ -29,12 +29,13 @@ public class BuildingController {
                 .collect(Collectors.toList());
     }
 
-//    @GetMapping(path = "/{id}")
-//    public BuildingDto findById(@PathVariable Long id) {
-//        return BuildingDto.findById(id).
-//                map(building -> new BuildingDto(building)).
-//                orElse(null);
-//    }
+    @GetMapping(path = "/{id}")
+    public BuildingDto findById(@PathVariable Long id) {
+        return buildingDao.findById(id).
+                map(building -> new BuildingDto(building)).
+                orElse(null);
+    }
+
 
 
 }

@@ -16,6 +16,14 @@ public class Building {
     @OneToMany(mappedBy = "building")
     private Set<Room> rooms;
 
+    public Building(){
+    }
+
+    public Building(Long id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
@@ -40,11 +48,4 @@ public class Building {
         this.rooms = rooms;
     }
 
-    public Building(){
-    }
-
-    public Building(Long id, String name){
-        this.id = id;
-        this.name = name;
-    }
 }
