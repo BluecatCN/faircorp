@@ -3,11 +3,9 @@ package com.emse.faircorp.controller;
 import com.emse.faircorp.dao.BuildingDao;
 import com.emse.faircorp.dto.BuildingDto;
 import com.emse.faircorp.dto.RoomDto;
+import com.emse.faircorp.model.Building;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -43,6 +41,19 @@ public class BuildingController {
         return buildingDao.findBuildingRoomsByBuildingId(id).stream().map(room -> new RoomDto(room)).collect(Collectors.toList());
     }
 
-
+    @PostMapping
+    public BuildingDto create(@RequestBody BuildingDto dto) {
+        Building building = null;
+        if (dto.getId() != null) {
+            building = buildingDao.findById(dto.getId()).orElse(null);
+        }
+        if (building == null) {
+            building = buildingDao.save(new Building(buildingDao.getOne(dto.getId()), dto.getName()));
+        } else {
+            building.setName(dto.getName());
+            buildingDao.save(building);
+        }
+        return new BuildingDto(building);
+    }
 
 }

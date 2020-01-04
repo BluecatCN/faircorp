@@ -9,5 +9,4 @@ import java.util.List;
 public interface RoomDaoCustom {
     Room findRoomByName();
     List<Light> findRoomLightsByRoomId(Long id);
-    Object getOne(Room room, Integer level, Status status);
 }

@@ -11,6 +11,14 @@ public class LightDto {
     private Status status;
     private Long roomId;
 
+    public Long getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
+    }
+
     public LightDto() {
     }
 

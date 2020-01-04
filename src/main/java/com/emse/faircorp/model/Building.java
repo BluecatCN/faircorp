@@ -24,6 +24,9 @@ public class Building {
         this.name = name;
     }
 
+    public Building(Building one, String name) {
+    }
+
     public Long getId() {
         return id;
     }

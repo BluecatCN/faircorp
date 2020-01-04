@@ -53,31 +53,21 @@ public class LightController {
     }
 
 //    @RequestMapping(value = "createLight", method = RequestMethod.POST)
-//    public LightDto create(@RequestBody LightDto dto) {
-//        Light light = null;
-//        if (dto.getId() != null) {
-//            light = lightDao.findById(dto.getId()).orElse(null);
-//        }
-//
-//        if (light == null) {
-////            roomDao.getOne(dto.getId())
-//            light = lightDao.save(
-//                    new Light(
-//                            roomDao.getOne(
-//                                    dto.getRoom(),
-//                                    dto.getLevel(),
-//                                    dto.getStatus()
-//                            )
-//                    )
-//            );
-//        } else {
-//            light.setLevel(dto.getLevel());
-//            light.setStatus(dto.getStatus());
-//            lightDao.save(light);
-//        }
-//
-//        return new LightDto(light);
-//    }
+@PostMapping
+public LightDto create(@RequestBody LightDto dto) {
+    Light light = null;
+    if (dto.getId() != null) {
+        light = lightDao.findById(dto.getId()).orElse(null);
+    }
+    if (light == null) {
+        light = lightDao.save(new Light(roomDao.getOne(dto.getRoomId()), dto.getLevel(), dto.getStatus()));
+    } else {
+        light.setLevel(dto.getLevel());
+        light.setStatus(dto.getStatus());
+        lightDao.save(light);
+    }
+    return new LightDto(light);
+}
 
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Long id) {

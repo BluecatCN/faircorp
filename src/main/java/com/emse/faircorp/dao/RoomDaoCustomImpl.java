@@ -30,8 +30,4 @@ public class RoomDaoCustomImpl implements RoomDaoCustom {
                 .getResultList();
     }
 
-    @Override
-    public Object getOne(Room room, Integer level, Status status) {
-        return null;
-    }
 }
