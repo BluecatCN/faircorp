@@ -7,13 +7,13 @@ import javax.persistence.*;
 public class Light {
 
     @Id
-    @GeneratedValue
+//    @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column()
     private Integer level;
 
-    @Column(nullable = false)
+    @Column()
     @Enumerated(EnumType.STRING)
     private Status status;
 

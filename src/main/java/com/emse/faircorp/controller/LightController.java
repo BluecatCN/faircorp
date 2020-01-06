@@ -15,6 +15,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin
 @RestController
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/lights")
@@ -53,13 +54,11 @@ public class LightController {
     //    @PutMapping(path = "/{id}/switch_get_room_lights")
     @RequestMapping(value = "/{id}/switch_get_room_lights", method = RequestMethod.PUT)
     public List<LightDto> switchStatus(@PathVariable Long id) {
-        System.out.println("switch" + id);
         Light light1 = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
         light1.setStatus(light1.getStatus() == Status.ON ? Status.OFF : Status.ON);
 
         Room room = light1.getRoom();
         Long roomId = room.getId();
-        System.out.println("room" + roomId);
         return roomDao.findRoomLightsByRoomId(roomId).stream().map(light -> new LightDto(light)).collect(Collectors.toList());
     }
 
@@ -72,11 +71,12 @@ public class LightController {
         }
         if (light == null) {
             light = lightDao.save(new Light(roomDao.getOne(dto.getRoomId()), dto.getLevel(), dto.getStatus()));
-        } else {
-            light.setLevel(dto.getLevel());
-            light.setStatus(dto.getStatus());
-            lightDao.save(light);
         }
+//        else {
+//            light.setLevel(dto.getLevel());
+//            light.setStatus(dto.getStatus());
+//            lightDao.save(light);
+//        }
         return new LightDto(light);
     }
 
