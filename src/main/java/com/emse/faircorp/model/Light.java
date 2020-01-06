@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Light {
 
     @Id
-//    @GeneratedValue
+    @GeneratedValue
     private Long id;
 
     @Column()
