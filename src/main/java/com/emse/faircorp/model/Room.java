@@ -63,4 +63,12 @@ public class Room {
     public void setLights(Set<Light> lights) {
         this.lights = lights;
     }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
 }

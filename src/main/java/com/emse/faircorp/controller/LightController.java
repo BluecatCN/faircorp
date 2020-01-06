@@ -29,7 +29,6 @@ public class LightController {
         response.addHeader("content-type", "application/json;charset=UTF-8");
     }
 
-
     @Autowired
     private LightDao lightDao;
     @Autowired
@@ -70,7 +69,8 @@ public class LightController {
             light = lightDao.findById(dto.getId()).orElse(null);
         }
         if (light == null) {
-            light = lightDao.save(new Light(roomDao.getOne(dto.getRoomId()), dto.getLevel(), dto.getStatus()));
+//            light = lightDao.save(new Light(roomDao.getOne(dto.getRoomId()), dto.getLevel(), dto.getStatus()));
+            light = lightDao.save(new Light(dto.getRoomId(), dto.getLevel(), dto.getStatus()));
         }
         else {
             light.setLevel(dto.getLevel());

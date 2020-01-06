@@ -36,6 +36,10 @@ public class Light {
 
     }
 
+    public Light(Long roomId, Integer level, Status status) {
+
+    }
+
     public Long getId() {
         return this.id;
     }
