@@ -4,6 +4,7 @@ import com.emse.faircorp.model.Light;
 import com.emse.faircorp.model.Room;
 import com.emse.faircorp.model.Status;
 
+import java.util.List;
 import java.util.Set;
 
 public class RoomDto {
@@ -11,7 +12,8 @@ public class RoomDto {
     private String name;
     private Integer floor;
 //    private Set<Light> lights;
-//    private String[] lights;
+//    private List<Long> lightIds;
+    private Set<Light> lights;
 
     public RoomDto() {
     }
@@ -20,7 +22,7 @@ public class RoomDto {
         this.id = room.getId();
         this.name = room.getName();
         this.floor = room.getFloor();
-//        Set<Light> ll = room.getLights();
+//        this.lights = room.getLights();
 //        this.lights = (String[]) room.getLights().toArray();
     }
 
@@ -39,6 +41,14 @@ public class RoomDto {
     public Integer getFloor() {
         return floor;
     }
+
+//    public Set<Light> getLights() {
+//        return lights;
+//    }
+//
+//    public void setLights(Set<Light> lights) {
+//        this.lights = lights;
+//    }
 
     public void setFloor(Integer floor) {
         this.floor = floor;

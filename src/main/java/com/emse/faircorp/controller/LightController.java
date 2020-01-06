@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 //import org.springframework.web.filter.HttpPutFormContentFilter;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +20,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/lights")
 @Transactional
 public class LightController {
+
+    public void addHeaders (HttpServletResponse response) {
+        response.addHeader("access-control-allow-credentials", "true");
+        response.addHeader("access-control-allow-headers", "Origin,Accept,X-Requested-With,Content-Type,X-Auth-Token,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
+        response.addHeader("access-control-allow-origin", "*");
+        response.addHeader("content-type", "application/json;charset=UTF-8");
+    }
+
 
     @Autowired
     private LightDao lightDao;
@@ -41,33 +50,35 @@ public class LightController {
     }
 
 
-    //    @PutMapping(path = "/{id}/switch")
-    @RequestMapping(value = "/{id}/switch_get_room_lights", method = RequestMethod.GET)
+    //    @PutMapping(path = "/{id}/switch_get_room_lights")
+    @RequestMapping(value = "/{id}/switch_get_room_lights", method = RequestMethod.PUT)
     public List<LightDto> switchStatus(@PathVariable Long id) {
+        System.out.println("switch" + id);
         Light light1 = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
         light1.setStatus(light1.getStatus() == Status.ON ? Status.OFF : Status.ON);
 
         Room room = light1.getRoom();
         Long roomId = room.getId();
+        System.out.println("room" + roomId);
         return roomDao.findRoomLightsByRoomId(roomId).stream().map(light -> new LightDto(light)).collect(Collectors.toList());
     }
 
-//    @RequestMapping(value = "createLight", method = RequestMethod.POST)
-@PostMapping
-public LightDto create(@RequestBody LightDto dto) {
-    Light light = null;
-    if (dto.getId() != null) {
-        light = lightDao.findById(dto.getId()).orElse(null);
+    //    @RequestMapping(value = "createLight", method = RequestMethod.POST)
+    @PostMapping
+    public LightDto create(@RequestBody LightDto dto) {
+        Light light = null;
+        if (dto.getId() != null) {
+            light = lightDao.findById(dto.getId()).orElse(null);
+        }
+        if (light == null) {
+            light = lightDao.save(new Light(roomDao.getOne(dto.getRoomId()), dto.getLevel(), dto.getStatus()));
+        } else {
+            light.setLevel(dto.getLevel());
+            light.setStatus(dto.getStatus());
+            lightDao.save(light);
+        }
+        return new LightDto(light);
     }
-    if (light == null) {
-        light = lightDao.save(new Light(roomDao.getOne(dto.getRoomId()), dto.getLevel(), dto.getStatus()));
-    } else {
-        light.setLevel(dto.getLevel());
-        light.setStatus(dto.getStatus());
-        lightDao.save(light);
-    }
-    return new LightDto(light);
-}
 
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Long id) {

@@ -7,6 +7,7 @@ import com.emse.faircorp.model.Building;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +17,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/buildings")
 @Transactional
 public class BuildingController {
+
+    public void addHeaders (HttpServletResponse response) {
+        response.addHeader("access-control-allow-credentials", "true");
+        response.addHeader("access-control-allow-headers", "Origin,Accept,X-Requested-With,Content-Type,X-Auth-Token,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
+        response.addHeader("access-control-allow-origin", "*");
+        response.addHeader("content-type", "application/json;charset=UTF-8");
+    }
 
     @Autowired
     private BuildingDao buildingDao;
