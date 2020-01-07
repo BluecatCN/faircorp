@@ -67,9 +67,9 @@ public class LightController {
 
         MqttMessage msg = new MqttMessage();
         if(light1.getStatus() == Status.ON){
-            msg.setPayload((roomId+"/ON").getBytes());
+            msg.setPayload(("{"+roomId+":ON}").getBytes());
         }else{
-            msg.setPayload((roomId+"/OFF").getBytes());
+            msg.setPayload(("{"+roomId+":OFF}").getBytes());
         }
 
         publisher.connect(options);
