@@ -66,7 +66,11 @@ public class LightController {
         options.setPassword("Y@_oK2".toCharArray());
 
         MqttMessage msg = new MqttMessage();
-        msg.setPayload(light1.getStatus().getBytes());
+        if(light1.getStatus() == Status.ON){
+            msg.setPayload("ON".getBytes());
+        }else{
+            msg.setPayload("OFF".getBytes());
+        }
 
         publisher.connect(options);
         if(publisher.isConnected()){
