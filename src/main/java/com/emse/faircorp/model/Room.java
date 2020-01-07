@@ -11,7 +11,7 @@ public class Room {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false, length=255)
+    @Column(nullable = false, length = 255)
     private String name;
 
     @Column(nullable = false)
@@ -32,6 +32,7 @@ public class Room {
         this.floor = floor;
         this.lights = lights;
     }
+
     public Long getId() {
         return id;
     }

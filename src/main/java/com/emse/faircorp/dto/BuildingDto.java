@@ -2,8 +2,6 @@ package com.emse.faircorp.dto;
 
 import com.emse.faircorp.model.Building;
 
-import java.util.Optional;
-
 public class BuildingDto {
     private Long id;
     private String name;

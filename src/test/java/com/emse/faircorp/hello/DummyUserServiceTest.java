@@ -14,19 +14,17 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(OutputCaptureExtension.class)
 public class DummyUserServiceTest {
 
-    @Configuration // 2
+    @Configuration
     @ComponentScan("com.emse.faircorp.hello")
     public static class DummyUserServiceTestConfig {
     }
 
-    @Autowired // 3
+    @Autowired
     public DummyUserService dummyUserService;
-
 
     @Test
     public void testGreetingAll(CapturedOutput output) {
         dummyUserService.greetAll();
-
         Assertions.assertThat(output.getAll()).contains("Hello, Elodie!", "Hello, Elodie!");
     }
 }

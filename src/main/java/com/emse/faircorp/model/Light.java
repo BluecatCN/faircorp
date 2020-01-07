@@ -29,15 +29,7 @@ public class Light {
         this.room = room;
     }
 
-    public Light(Object one) {
-    }
-
-    public Light(Room one, Integer level, Status status) {
-
-    }
-
     public Light(Long roomId, Integer level, Status status) {
-//        this.room = getRoom().
         this.level = level;
         this.status = status;
 

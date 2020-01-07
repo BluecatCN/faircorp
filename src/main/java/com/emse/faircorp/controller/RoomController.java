@@ -3,15 +3,15 @@ package com.emse.faircorp.controller;
 import com.emse.faircorp.dao.BuildingDao;
 import com.emse.faircorp.dao.LightDao;
 import com.emse.faircorp.dao.RoomDao;
-import com.emse.faircorp.dao.RoomDaoCustom;
 import com.emse.faircorp.dto.LightDto;
 import com.emse.faircorp.dto.RoomDto;
 import com.emse.faircorp.model.Building;
-import com.emse.faircorp.model.Light;
 import com.emse.faircorp.model.Room;
-import com.emse.faircorp.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/rooms")
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Transactional
 public class RoomController {
 
@@ -39,7 +38,6 @@ public class RoomController {
     @Autowired
     private RoomDao roomDao;
 
-    //    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping
     public List<RoomDto> findAll() {
         return roomDao.findAll()
@@ -52,7 +50,6 @@ public class RoomController {
     public RoomDto findById(@PathVariable Long id) {
         return roomDao.findById(id).map(room -> new RoomDto(room)).orElse(null);
     }
-
 
     @GetMapping(path = "getLights/{id}")
     public List<LightDto> findLightsByRoom(@PathVariable Long id) {

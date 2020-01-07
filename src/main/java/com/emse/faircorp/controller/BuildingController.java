@@ -13,12 +13,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/buildings")
 @Transactional
 public class BuildingController {
 
-    public void addHeaders (HttpServletResponse response) {
+    public void addHeaders(HttpServletResponse response) {
         response.addHeader("access-control-allow-credentials", "true");
         response.addHeader("access-control-allow-headers", "Origin,Accept,X-Requested-With,Content-Type,X-Auth-Token,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
         response.addHeader("access-control-allow-origin", "*");
@@ -43,7 +42,6 @@ public class BuildingController {
                 orElse(null);
     }
 
-
     @GetMapping(path = "getRooms/{id}")
     public List<RoomDto> findRoomsByBuilding(@PathVariable Long id) {
         return buildingDao.findBuildingRoomsByBuildingId(id).stream().map(room -> new RoomDto(room)).collect(Collectors.toList());
@@ -63,5 +61,4 @@ public class BuildingController {
         }
         return new BuildingDto(building);
     }
-
 }

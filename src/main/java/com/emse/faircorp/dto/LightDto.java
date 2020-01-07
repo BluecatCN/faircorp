@@ -1,7 +1,6 @@
 package com.emse.faircorp.dto;
 
 import com.emse.faircorp.model.Light;
-import com.emse.faircorp.model.Room;
 import com.emse.faircorp.model.Status;
 
 public class LightDto {
@@ -18,7 +17,7 @@ public class LightDto {
         this.id = light.getId();
         this.level = light.getLevel();
         this.status = light.getStatus();
-        if (light.getRoom()!= null){
+        if (light.getRoom() != null) {
             this.roomId = light.getRoom().getId();
         }
     }

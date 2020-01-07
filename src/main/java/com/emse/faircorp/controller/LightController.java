@@ -6,10 +6,12 @@ import com.emse.faircorp.dto.LightDto;
 import com.emse.faircorp.model.Light;
 import com.emse.faircorp.model.Room;
 import com.emse.faircorp.model.Status;
-import org.eclipse.paho.client.mqttv3.*;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-//import org.springframework.web.filter.HttpPutFormContentFilter;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -18,12 +20,10 @@ import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/lights")
 @Transactional
 public class LightController {
-
-    public void addHeaders (HttpServletResponse response) {
+    public void addHeaders(HttpServletResponse response) {
         response.addHeader("access-control-allow-credentials", "true");
         response.addHeader("access-control-allow-headers", "Origin,Accept,X-Requested-With,Content-Type,X-Auth-Token,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
         response.addHeader("access-control-allow-origin", "*");
@@ -32,6 +32,7 @@ public class LightController {
 
     @Autowired
     private LightDao lightDao;
+
     @Autowired
     private RoomDao roomDao;
 
@@ -50,8 +51,6 @@ public class LightController {
                 orElse(null);
     }
 
-
-    //    @PutMapping(path = "/{id}/switch_get_room_lights")
     @RequestMapping(value = "/{id}/switch_get_room_lights", method = RequestMethod.PUT)
     public List<LightDto> switchStatus(@PathVariable Long id) throws MqttException {
         Light light1 = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
@@ -66,20 +65,19 @@ public class LightController {
         options.setPassword("Y@_oK2".toCharArray());
 
         MqttMessage msg = new MqttMessage();
-        if(light1.getStatus() == Status.ON){
-            msg.setPayload(("{"+roomId+":ON}").getBytes());
-        }else{
-            msg.setPayload(("{"+roomId+":OFF}").getBytes());
+        if (light1.getStatus() == Status.ON) {
+            msg.setPayload(("{" + roomId + ":ON}").getBytes());
+        } else {
+            msg.setPayload(("{" + roomId + ":OFF}").getBytes());
         }
 
         publisher.connect(options);
-        if(publisher.isConnected()){
+        if (publisher.isConnected()) {
             publisher.publish("switchLight", msg);
         }
         return roomDao.findRoomLightsByRoomId(roomId).stream().map(light -> new LightDto(light)).collect(Collectors.toList());
     }
 
-    //    @RequestMapping(value = "createLight", method = RequestMethod.POST)
     @PostMapping
     public LightDto create(@RequestBody LightDto dto) {
         Light light = null;
@@ -87,15 +85,12 @@ public class LightController {
             light = lightDao.findById(dto.getId()).orElse(null);
         }
         if (light == null) {
-//            Room room = roomDao.getOne(dto.getRoomId());
-            light = lightDao.save(new Light(roomDao.getOne(dto.getRoomId()), dto.getLevel(), dto.getStatus()));
-        }
-        else {
+            light = lightDao.save(new Light(dto.getLevel(), dto.getStatus(), roomDao.getOne(dto.getRoomId())));
+        } else {
             light.setLevel(dto.getLevel());
             light.setStatus(dto.getStatus());
             lightDao.save(light);
         }
-
         return new LightDto(light);
     }
 

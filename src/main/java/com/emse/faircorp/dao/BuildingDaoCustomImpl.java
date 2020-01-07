@@ -1,5 +1,5 @@
 package com.emse.faircorp.dao;
-import com.emse.faircorp.model.Building;
+
 import com.emse.faircorp.model.Room;
 import org.springframework.stereotype.Repository;
 
