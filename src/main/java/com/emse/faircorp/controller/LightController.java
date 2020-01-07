@@ -6,6 +6,7 @@ import com.emse.faircorp.dto.LightDto;
 import com.emse.faircorp.model.Light;
 import com.emse.faircorp.model.Room;
 import com.emse.faircorp.model.Status;
+import org.eclipse.paho.client.mqttv3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 //import org.springframework.web.filter.HttpPutFormContentFilter;
@@ -52,12 +53,25 @@ public class LightController {
 
     //    @PutMapping(path = "/{id}/switch_get_room_lights")
     @RequestMapping(value = "/{id}/switch_get_room_lights", method = RequestMethod.PUT)
-    public List<LightDto> switchStatus(@PathVariable Long id) {
+    public List<LightDto> switchStatus(@PathVariable Long id) throws MqttException {
         Light light1 = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
         light1.setStatus(light1.getStatus() == Status.ON ? Status.OFF : Status.ON);
 
         Room room = light1.getRoom();
         Long roomId = room.getId();
+
+        MqttClient publisher = new MqttClient("tcp://max.isasecret.com:1723", "1");
+        MqttConnectOptions options = new MqttConnectOptions();
+        options.setUserName("majinfo2019");
+        options.setPassword("Y@_oK2".toCharArray());
+
+        MqttMessage msg = new MqttMessage();
+        msg.setPayload("ON".getBytes());
+
+        publisher.connect(options);
+        if(publisher.isConnected()){
+            publisher.publish("switchLight", msg);
+        }
         return roomDao.findRoomLightsByRoomId(roomId).stream().map(light -> new LightDto(light)).collect(Collectors.toList());
     }
 
@@ -69,14 +83,15 @@ public class LightController {
             light = lightDao.findById(dto.getId()).orElse(null);
         }
         if (light == null) {
-//            light = lightDao.save(new Light(roomDao.getOne(dto.getRoomId()), dto.getLevel(), dto.getStatus()));
-            light = lightDao.save(new Light(dto.getRoomId(), dto.getLevel(), dto.getStatus()));
+//            Room room = roomDao.getOne(dto.getRoomId());
+            light = lightDao.save(new Light(roomDao.getOne(dto.getRoomId()), dto.getLevel(), dto.getStatus()));
         }
         else {
             light.setLevel(dto.getLevel());
             light.setStatus(dto.getStatus());
             lightDao.save(light);
         }
+
         return new LightDto(light);
     }
 

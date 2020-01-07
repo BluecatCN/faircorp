@@ -17,6 +17,9 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven {
+		url "https://repo.eclipse.org/content/repositories/paho-releases/"
+	}
 }
 
 dependencies {
@@ -28,6 +31,7 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('com.h2database:h2')
+	implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
 
 //	runtimeOnly 'mysql:mysql-connector-java'
 //	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'

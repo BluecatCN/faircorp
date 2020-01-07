@@ -30,4 +30,9 @@ public class RoomDaoCustomImpl implements RoomDaoCustom {
                 .getResultList();
     }
 
+    @Override
+    public List<Light> updateRoomDataRoomId() {
+        return null;
+    }
+
 }

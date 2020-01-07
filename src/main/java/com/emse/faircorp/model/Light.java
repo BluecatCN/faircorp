@@ -37,6 +37,9 @@ public class Light {
     }
 
     public Light(Long roomId, Integer level, Status status) {
+//        this.room = getRoom().
+        this.level = level;
+        this.status = status;
 
     }
 
